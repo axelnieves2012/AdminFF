@@ -2,7 +2,7 @@
 * Admin's Friendly Fire Manager by Root
 *
 * Description:
-*   Allow admins to give/take more/less friendly fire damage, or disable it at all.
+*   Allow admin's to give/take more/less friendly fire damage, or disable it at all.
 *
 * Version 1.1.2
 * Changelog & more info at http://goo.gl/4nKhJ
@@ -13,8 +13,8 @@
 #include <sdkhooks>
 
 // ====[ CONSTANTS ]===================================================
-#define PLUGIN_NAME         "Admin's Friendly Fire Manager"
-#define PLUGIN_VERSION      "1.1.2"
+#define PLUGIN_NAME    "Admin's Friendly Fire Manager"
+#define PLUGIN_VERSION "1.1.2"
 
 // ====[ VARIABLES ]===================================================
 new Handle:adminff_enable     = INVALID_HANDLE,
@@ -25,24 +25,24 @@ new Handle:adminff_enable     = INVALID_HANDLE,
 // ====[ PLUGIN ]======================================================
 public Plugin:myinfo =
 {
-	name			= PLUGIN_NAME,
-	author			= "Root",
-	description		= "Changes friendly fire damage for admins",
-	version			= PLUGIN_VERSION,
-	url				= "http://dodsplugins.com/"
+	name        = PLUGIN_NAME,
+	author      = "Root",
+	description = "Changes friendly fire damage for admins",
+	version     = PLUGIN_VERSION,
+	url         = "http://dodsplugins.com/"
 };
 
 
 /* OnPluginStart()
  *
  * When the plugin starts up.
- * --------------------------------------------------------------------- */
+ * -------------------------------------------------------------------- */
 public OnPluginStart()
 {
 	// Create ConVars
 	CreateConVar("sm_adminff_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_PLUGIN|FCVAR_SPONLY|FCVAR_REPLICATED)
 
-	adminff_enable     = CreateConVar("sm_adminff_enable",     "1",   "Enable or disable plugin",                                            FCVAR_PLUGIN, true, 0.0, true, 1.0)
+	adminff_enable     = CreateConVar("sm_adminff_enable",     "1",   "Whether or not enable Admin's FF manager",                            FCVAR_PLUGIN, true, 0.0, true, 1.0)
 	adminff_give       = CreateConVar("sm_adminff_give",       "0",   "Friendly fire damage multipler.\nSet to 0 to disable FF from admins", FCVAR_PLUGIN, true, 0.0, true, 2.0)
 	adminff_take       = CreateConVar("sm_adminff_take",       "0.5", "Teammates damage multipler.\nSet to 0 to disable damage to admins",   FCVAR_PLUGIN, true, 0.0, true, 2.0)
 	adminff_customflag = CreateConVar("sm_adminff_customflag", "0",   "Manage FF for admins with:\n0 - Generic flag\n1 - Custom flag (6th)", FCVAR_PLUGIN, true, 0.0, true, 1.0)
@@ -54,7 +54,7 @@ public OnPluginStart()
 /* OnClientPutInServer()
  *
  * Called when a client is entering the game.
- * --------------------------------------------------------------------- */
+ * -------------------------------------------------------------------- */
 public OnClientPutInServer(client)
 {
 	// Hooks an OnTakeDamage entity
@@ -64,7 +64,7 @@ public OnClientPutInServer(client)
 /* OnTakeDamage(SDKHooks)
  *
  * Called when a client takes damage to another.
- * --------------------------------------------------------------------- */
+ * -------------------------------------------------------------------- */
 public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype)
 {
 	if (GetConVarBool(adminff_enable))
@@ -99,7 +99,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 /* IsValidClient()
  *
  * Checks if a client is valid.
- * --------------------------------------------------------------------- */
+ * -------------------------------------------------------------------- */
 bool:IsValidClient(client)
 {
 	// Client may be valid, but not in-game
@@ -109,7 +109,7 @@ bool:IsValidClient(client)
 /* IsClientAdmin()
  *
  * Checks if player got admin access.
- * --------------------------------------------------------------------- */
+ * -------------------------------------------------------------------- */
 bool:IsClientAdmin(client)
 {
 	// If customflag cvar is specified, check admins with 6th custom flag
