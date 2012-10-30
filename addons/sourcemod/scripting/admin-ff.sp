@@ -17,7 +17,7 @@
 #define PLUGIN_VERSION "1.1.2"
 
 // ====[ VARIABLES ]===================================================
-new Handle:adminff_enable     = INVALID_HANDLE,
+new	Handle:adminff_enable     = INVALID_HANDLE,
 	Handle:adminff_give       = INVALID_HANDLE,
 	Handle:adminff_take       = INVALID_HANDLE,
 	Handle:adminff_customflag = INVALID_HANDLE
@@ -42,10 +42,10 @@ public OnPluginStart()
 	// Create ConVars
 	CreateConVar("sm_adminff_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_PLUGIN|FCVAR_SPONLY|FCVAR_REPLICATED)
 
-	adminff_enable     = CreateConVar("sm_adminff_enable",     "1",   "Whether or not enable Admin's FF manager",                            FCVAR_PLUGIN, true, 0.0, true, 1.0)
-	adminff_give       = CreateConVar("sm_adminff_give",       "0",   "Friendly fire damage multipler.\nSet to 0 to disable FF from admins", FCVAR_PLUGIN, true, 0.0, true, 2.0)
-	adminff_take       = CreateConVar("sm_adminff_take",       "0.5", "Teammates damage multipler.\nSet to 0 to disable damage to admins",   FCVAR_PLUGIN, true, 0.0, true, 2.0)
-	adminff_customflag = CreateConVar("sm_adminff_customflag", "0",   "Manage FF for admins with:\n0 - Generic flag\n1 - Custom flag (6th)", FCVAR_PLUGIN, true, 0.0, true, 1.0)
+	adminff_enable     = CreateConVar("sm_adminff_enable",     "1",   "Whether or not enable Admin's FF manager",                             FCVAR_PLUGIN, true, 0.0, true, 1.0)
+	adminff_give       = CreateConVar("sm_adminff_give",       "0",   "Friendly fire damage multipler.\nSet to 0 to disable FF from admins.", FCVAR_PLUGIN, true, 0.0, true, 2.0)
+	adminff_take       = CreateConVar("sm_adminff_take",       "0.5", "Teammates damage multipler.\nSet to 0 to disable damage to admins.",   FCVAR_PLUGIN, true, 0.0, true, 2.0)
+	adminff_customflag = CreateConVar("sm_adminff_customflag", "0",   "Manage FF for admins with:\n0 - Generic flag\n1 - Custom flag (6th)",  FCVAR_PLUGIN, true, 0.0, true, 1.0)
 
 	// Create and exec plugin's config from cfg/sourcemod folder
 	AutoExecConfig(true)
@@ -81,7 +81,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 				else
 					damage = 0.0
 			}
-			// Both client should not have any admin rights!
+			// Both client should not have any admin rights
 			else if (IsClientAdmin(victim) && !IsClientAdmin(attacker))
 			{
 				if (GetConVarFloat(adminff_take) > 0)
@@ -93,7 +93,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			return Plugin_Changed
 		}
 	}
-	return Plugin_Continue /* Dont forget to return Plugin_Continue (otherwise no damage will deal) */
+	return Plugin_Continue /* Dont forget to return Plugin_Continue (or damage will be disabled) */
 }
 
 /* IsValidClient()
