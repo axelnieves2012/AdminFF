@@ -112,7 +112,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 			damage *= GetConVarFloat(adminff_give);
 		}
 
-		// Both client should not have any admin rights though
+		// Both clients should not have any admin rights though
 		else if (IsClientAdmin[victim])
 		{
 			damage *= GetConVarFloat(adminff_take);
@@ -122,7 +122,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
 		return Plugin_Changed;
 	}
 
-	// Dont forget to return Plugin_Continue - or damage will not deal
+	// Dont forget to return Plugin_Continue, or damage will not deal
 	return Plugin_Continue;
 }
 
